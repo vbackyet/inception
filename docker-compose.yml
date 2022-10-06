@@ -9,6 +9,7 @@ services:
     ports:
       - "443:443"
       - "80:80"
-    # volumes:
+    volumes:
+      - .:/var/www/
     #   - ./srcs/requirements/tools:/etc/nginx/http.d/
     #   - ./srcs/requirements/tools:/etc/nginx/ssl/
