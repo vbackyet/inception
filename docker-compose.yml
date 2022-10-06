@@ -3,10 +3,12 @@ version: '3'
 services:
   nginx:
     build:
-      context: .
-      dockerfile: srcs/requirements/nginx/Dockerfile
+      context: srcs/requirements/nginx/
+      dockerfile: Dockerfile
     container_name: nginx
     ports:
       - "443:443"
-    volumes:
-      -
+      - "80:80"
+    # volumes:
+    #   - ./srcs/requirements/tools:/etc/nginx/http.d/
+    #   - ./srcs/requirements/tools:/etc/nginx/ssl/

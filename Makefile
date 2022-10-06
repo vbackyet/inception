@@ -1,7 +1,7 @@
 name = "Puk"
 all:
 	@printf "Запуск конфигурации ${name}...\n"
-	@docker run -p 80:80 nginx
+	@docker-compose -f ./docker-compose.yml up -d --build
 
 build:
 
