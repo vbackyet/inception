@@ -13,3 +13,15 @@ services:
       - .:/var/www/
     #   - ./srcs/requirements/tools:/etc/nginx/http.d/
     #   - ./srcs/requirements/tools:/etc/nginx/ssl/
+  mariadb:
+    build:
+      context: srcs/requirements/masha/
+      dockerfile: Dockerfile
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - .:/var/lib/mysql
+    environment: 
+      - srcs/requirements/masha/.env
+
