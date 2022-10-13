@@ -45,11 +45,10 @@ RUN 	unzip latest.zip -d /var/www/html/
 RUN 	chown -R nobody:nobody /var/www/html/wordpress/
 RUN		find /var/www/html/wordpress -type d -exec chmod 755 {} \;
 RUN		find /var/www/html/wordpress -type f -exec chmod 644 {} \;
-# RUN		chown 					-R www-data:www-data /var/www/html
 
 
-
+COPY	./conf/wp-config.php	.
 COPY  ./run.sh	.
 RUN		chmod +x 				"./run.sh"
-RUN		ls -la
+RUN		cd bin && ls -la
 ENTRYPOINT						["./run.sh"]
