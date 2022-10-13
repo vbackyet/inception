@@ -40,15 +40,16 @@ COPY	conf/www.conf /etc/php8/php-fpm.d/www.conf
 # WORKDIR 
 RUN 	wget https://wordpress.org/latest.zip
 RUN		mkdir 					-p /var/www/html
-
+RUN		adduser 				-u 82 -D -S -G www-data www-data
 RUN 	unzip latest.zip -d /var/www/html/
-RUN 	chown -R nobody:nobody /var/www/html/wordpress/
+RUN 	chown -R www-data:www-data /var/www/html/wordpress/
 RUN		find /var/www/html/wordpress -type d -exec chmod 755 {} \;
 RUN		find /var/www/html/wordpress -type f -exec chmod 644 {} \;
 
 
-COPY	./conf/wp-config.php	.
-COPY  ./run.sh	.
+COPY	./conf/wp-config.php .
+
+COPY  	./run.sh	.
 RUN		chmod +x 				"./run.sh"
 RUN		cd bin && ls -la
 ENTRYPOINT						["./run.sh"]

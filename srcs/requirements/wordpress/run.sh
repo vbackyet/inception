@@ -2,8 +2,9 @@
 
 
 echo "Puk wordpress"
-# mkdir - r /usr/local/bin/wp
-/usr/local/bin/wp	--info
-/usr/local/bin/wp	core download --allow-root --path="/var/www/html"
+# mv					-f wp-cli.phar /usr/local/bin/wp
 
 cp					./wp-config.php /var/www/html/wp-config.php
+
+/usr/sbin/php-fpm8 -F
+# /usr/local/bin/wp	core download --allow-root --path="/var/www/html"

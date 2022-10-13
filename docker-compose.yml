@@ -1,4 +1,4 @@
-version: '3'
+version: '3.6'
 
 services:
   nginx:
@@ -9,6 +9,8 @@ services:
     ports:
       - "443:443"
       - "80:80"
+    networks:
+      - inception
     volumes:
       - .:/var/www/
     #   - ./srcs/requirements/tools:/etc/nginx/http.d/
@@ -22,6 +24,22 @@ services:
       - "3306:3306"
     volumes:
       - .:/var/lib/mysql
+    networks:
+      - inception
     environment: 
       - srcs/requirements/masha/.env
-
+  wordpress:
+    container_name: wordpress
+    build: srcs/requirements/wordpress
+    image: wordpress
+    env_file: .env
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    volumes:
+      - .:/var/www/html
+networks:
+  inception:
+    name: inception
+    driver: bridge
