@@ -1,22 +1,31 @@
+
 version: '3.6'
 
 services:
+
   nginx:
     build:
       context: srcs/requirements/nginx/
       dockerfile: Dockerfile
     container_name: nginx
+    depends_on:
+      - wordpress
     ports:
       - "443:443"
-      - "80:80"
     networks:
       - inception
     volumes:
       - www:/var/www/
+
   mariadb:
     build:
       context: srcs/requirements/masha/
       dockerfile: Dockerfile
+      args:
+        MARIADB_DATABASE: ${MARIADB_DATABASE}
+        MARIADB_USER: ${MARIADB_USER}
+        MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+        MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
     container_name: mariadb
     ports:
       - "3306:3306"
@@ -24,12 +33,19 @@ services:
       - database:/var/lib/mysql
     networks:
       - inception
-    environment: 
-      - srcs/requirements/masha/.env
+
   wordpress:
     container_name: wordpress
-    build: srcs/requirements/wordpress
+    build:
+      context: srcs/requirements/wordpress/
+      dockerfile: Dockerfile
+      args:
+        MARIADB_DATABASE: ${MARIADB_DATABASE}
+        MARIADB_USER: ${MARIADB_USER}
+        MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     image: wordpress
+    depends_on:
+      - mariadb
     env_file: .env
     ports:
       - "9000:9000"
@@ -38,7 +54,8 @@ services:
     networks:
       - inception
     volumes:
-      - www:/var/www/html
+      - www:/var/www
+
 volumes:
   www:
     driver: local
