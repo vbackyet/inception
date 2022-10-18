@@ -29,8 +29,9 @@ services:
     container_name: mariadb
     volumes:
       - database:/var/lib/mysql
-    # networks:
-    #   - inception
+    env_file: .env
+    networks:
+      - inception
 
   wordpress:
     container_name: wordpress
