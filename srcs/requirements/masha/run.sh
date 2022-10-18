@@ -4,8 +4,8 @@
 echo "Create Masha DB"
 
 
-/usr/bin/mysql_install_db --user=root --basedir=/usr --datadir=/var/lib/mysql
-/usr/bin/mysqld --user=root --datadir=/var/lib/mysql & sleep 2
+/usr/bin/mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+/usr/bin/mysqld --user=mysql --datadir=/var/lib/mysql & sleep 2
 
 mysql -e "CREATE DATABASE IF NOT EXISTS \`${MARIADB_DATABASE}\`;"
 mysql -e "CREATE USER IF NOT EXISTS \`${MARIADB_USER}\`@'localhost' IDENTIFIED BY '${MARIADB_PASSWORD}';"
@@ -18,4 +18,4 @@ echo "Clode"
 
 
 pkill mysqld
-/usr/bin/mysqld --user=root --datadir=/var/lib/mysql
+/usr/bin/mysqld --user=mysql --datadir=/var/lib/mysql
