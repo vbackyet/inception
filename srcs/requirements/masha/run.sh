@@ -3,12 +3,15 @@
 
 echo "Create Masha DB"
 
+ls -la
+# mkdir -p /home/vbackyet/data/database
+# mkdir -p /home/vbackyet/data/www
 
-# mkdir -p /home/acoezard/data/database
-# mkdir -p /home/acoezard/data/www
 
-# /usr/bin/mysql_install_db --user=root --basedir=/usr --datadir=/var/lib/mysql
-/usr/bin/mysqld --user=root --datadir=/var/lib/mysql
+
+
+/usr/bin/mysql_install_db --user=root --basedir=/usr --datadir=/var/lib/mysql
+/usr/bin/mysqld --user=root --datadir=/var/lib/mysql & sleep 2
 # export MARIADB_DATABASE=mysql
 # export MARIADB_USER=vbackyet
 # export MARIADB_PASSWORD=123

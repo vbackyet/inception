@@ -2,6 +2,7 @@
 
 
 echo "Puk wordpress"
+sleep 5
 # mv					-f wp-cli.phar /usr/local/bin/wp
 
 cp					./wp-config.php /var/www/html/wp-config.php

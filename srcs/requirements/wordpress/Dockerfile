@@ -51,5 +51,5 @@ COPY	./conf/wp-config.php .
 
 COPY  	./run.sh	.
 RUN		chmod +x 				"./run.sh"
-RUN		cd bin && ls -la
+
 ENTRYPOINT						["./run.sh"]

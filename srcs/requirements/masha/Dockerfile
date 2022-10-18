@@ -12,8 +12,10 @@ RUN			chown -R 'mysql' /run/mysqld
 RUN			chown -R 'mysql' /var/lib/mysql
 # RUN         chmod 777 /run/mysqld/mysqld.sock
 # RUN         chmod 777 /var/lib/mysql
-WORKDIR .
+# WORKDIR .
 RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
+
+
 COPY run.sh .
 EXPOSE 3306
 USER mysql
