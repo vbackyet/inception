@@ -1,5 +1,5 @@
 
-version: '3.6'
+version: '3'
 
 services:
 
@@ -27,12 +27,10 @@ services:
         MARIADB_PASSWORD: ${MARIADB_PASSWORD}
         MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
     container_name: mariadb
-    ports:
-      - "3306:3306"
     volumes:
       - database:/var/lib/mysql
-    networks:
-      - inception
+    # networks:
+    #   - inception
 
   wordpress:
     container_name: wordpress
@@ -72,6 +70,5 @@ volumes:
 
   #============================================================================#
 networks:
-  inception:
-    name: inception
-    driver: bridge
+    inception:
+        driver: bridge

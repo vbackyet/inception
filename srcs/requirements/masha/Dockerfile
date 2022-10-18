@@ -10,9 +10,6 @@
 # RUN mkdir /var/run/mysqld; \
 #     chmod 777 /var/run/mysqld; \
 #     { echo '[mysqld]'; \
-#     echo 'user = mysql'; \
-#     echo 'datadir = /var/lib/mysql'; \
-#     echo 'socket = /run/mysqld/mysqld.sock'; \
 #       echo 'skip-host-cache'; \
 #       echo 'skip-name-resolve'; \
 #       echo 'bind-address=0.0.0.0'; \
@@ -24,12 +21,10 @@
 
 # EXPOSE 3306
 
-# COPY run.sh .
-# RUN sh run.sh && rm run.sh
+# COPY conf/create_db.sh .
+# RUN sh create_db.sh && rm create_db.sh
 # USER mysql
 # CMD ["/usr/bin/mysqld", "--skip-log-error"]
-
-
 
 
 FROM alpine:3.16.2
@@ -44,16 +39,13 @@ COPY conf/my.cnf /etc/mysql/my.cnf
 COPY conf/my.cnf /etc/my.cnf
 COPY conf/my.cnf /var/lib/mysql/my.cnf
 
-RUN			mkdir -p /run/mysqld
-RUN			mkdir -p /var/lib/mysql
-RUN         mkfifo /run/mysqld/mysqld.sock
-RUN         chmod 777 /run/mysqld/mysqld.sock
+RUN			mkdir -p /run/mysqld && chown -R 'mysql' /run/mysqld
+RUN			mkdir -p /var/lib/mysql && chown -R 'mysql' /var/lib/mysql
+# RUN         mkfifo /run/mysqld/mysqld.sock
+# RUN         chmod 777 /run/mysqld/mysqld.sock
 RUN         chmod 777 /var/lib/
-RUN			chown -R 'mysql' /run/mysqld
-RUN			chown -R 'mysql' /var/lib/mysql
 
 WORKDIR .
 COPY run.sh .
 EXPOSE 3306
-USER mysql
 CMD ["/bin/sh", "run.sh"]
