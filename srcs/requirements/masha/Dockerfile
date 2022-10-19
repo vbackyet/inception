@@ -12,9 +12,6 @@ COPY conf/my.cnf /var/lib/mysql/my.cnf
 
 RUN			mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 RUN			mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql
-# RUN         chown -R 'mysql' /usr/lib/mysql/plugin/auth_pam_tool_dir/auth_pam_tool
-# RUN         mkfifo /run/mysqld/mysqld.sock
-# RUN         chmod 777 /run/mysqld/mysqld.sock
 RUN         chmod 777 /var/lib/
 
 WORKDIR .
