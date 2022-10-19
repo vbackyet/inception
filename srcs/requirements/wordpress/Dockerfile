@@ -50,12 +50,11 @@ RUN wget https://wordpress.org/latest.zip && \
 	find /var/www/ -type f -exec chmod 644 {} \;
 
 
-COPY ./conf/wp-config-create.sh .
-RUN sh wp-config-create.sh && rm wp-config-create.sh && \
-	chmod -R 0777 wp-content && chown -R www-data:www-data /var/www/wp-config.php
+# COPY ./conf/wp-config-create.sh .
+# # RUN sh wp-config-create.sh && rm wp-config-create.sh && \
+# # 	chmod -R 0777 wp-content && chown -R www-data:www-data /var/www/wp-config.php
 
 EXPOSE 9000
-# ENTRYPOINT						["/usr/sbin/php-fpm8", "-F"]
 COPY  	./conf/run.sh	.
 RUN		chmod +x 				"./run.sh"
 
